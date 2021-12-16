@@ -1,10 +1,24 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
+  <Slide>
+    <a id="home" href="/">
+      <span>Home</span>
+    </a>
+    <a id="about" href="/about">
+      <span>About</span>
+    </a>
+  </Slide>
   <router-view />
 </template>
+
+<script>
+import { Slide } from "vue3-burger-menu";
+
+export default {
+  components: {
+    Slide,
+  },
+};
+</script>
 
 <style>
 #app {

@@ -1,0 +1,164 @@
+html {
+  background: linear-gradient(to top, #8baaaa 0%, #ae8b9c 100%);
+  width: 100%;
+  height: 100%;
+  overflow-x: scroll;
+}
+
+header {
+  color: white;
+  font-size: 40px;
+  text-align: center;
+  padding: 20px;
+}
+
+.d-flex {
+  display: flex;
+}
+
+/* Section Style */
+.addSection {
+  margin: 0 10px;
+  display: inline-block;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 300px;
+}
+
+.deleteSection {
+  position: absolute;
+  top: 3px;
+  right: 10px;
+  font-size: 25px;
+}
+
+.deleteSection:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.section {
+  margin: 0 5px auto;
+  position: relative;
+  display: inline-block;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 290px;
+  background-color: #e0e0e0a6;
+  border-radius: 10px;
+  padding: 15px;
+  border: solid rgb(243, 243, 243) 1px;
+  color: gray;
+  vertical-align: top;
+}
+
+.section-title {
+  font-size: 25px;
+  font-weight: bold;
+}
+/* Section Style fin */
+
+/* Task Style */
+.task {
+  margin: 10px 0;
+  position: relative;
+  /* display: flex; */
+  padding: 20px 15px;
+  background-color: rgba(255, 255, 255, 0.712);
+  border-radius: 10px;
+  width: 260px;
+  cursor: pointer;
+}
+
+.delete-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 8px;
+  border: none;
+  background-color: #ca7da1;
+  color: white;
+  margin: 5px;
+}
+
+.delete-button:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.edit-button {
+  position: absolute;
+  padding: 5px 8px;
+  bottom: 5px;
+  right: 5px;
+  font-size: 15px;
+  cursor: pointer;
+  border-radius: 10px;
+  border: none;
+  background-color: rgb(131, 127, 127);
+  color: white;
+  margin: 5px;
+}
+
+.edit-button:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.content {
+  font-size: 20px;
+}
+/* Task Style fin */
+
+/* Section & Task Style */
+.input-text {
+  padding: 15px;
+  background-color: rgba(204, 204, 204, 0.507);
+  border-radius: 10px;
+  cursor: pointer;
+  border: solid rgb(243, 243, 243) 1px;
+  font-weight: 700;
+  font-size: 20px;
+  color: #242424;
+  width: 260px;
+}
+.input-task {
+  margin-top: 30px;
+  background-color: rgba(255, 255, 255, 0);
+  border-radius: 10px;
+  cursor: pointer;
+  border: solid rgba(255, 255, 255, 0) 1px;
+  font-weight: 700;
+  font-size: 20px;
+  color: #242424;
+  width: 100%;
+}
+.input-text:focus {
+  outline: 0;
+}
+.input-task:focus {
+  outline: 0;
+}
+
+.active .input-text {
+  background-color: rgba(255, 255, 255, 0.712);
+}
+
+.add-button {
+  margin-top: 15px;
+  padding: 15px;
+  background-color: rgb(131, 127, 127);
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 20px;
+  color: #fff;
+  width: 290px;
+}
+
+.add-button:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
