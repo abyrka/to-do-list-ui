@@ -20,6 +20,7 @@
         class="input-task"
       />
     </div>
+    <single-file :itemId="item._id" />
   </div>
 </template>
 
@@ -29,6 +30,7 @@ import {
   updateTodoItems,
   completeTodoItems,
 } from "@/services/index";
+import SingleFile from "@/components/SingleFile.vue";
 
 export default {
   props: {
@@ -36,6 +38,9 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  components: {
+    SingleFile,
   },
   data() {
     return {
