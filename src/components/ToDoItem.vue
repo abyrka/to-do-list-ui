@@ -21,14 +21,23 @@
       />
     </div>
     <single-file :itemId="item._id" />
+    <button
+      v-for="file in files"
+      :key="file._id"
+      v-on:click="submitFile(file._id)"
+    >
+      {{ file.name }}
+    </button>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 import {
   deleteTodoItem,
   updateTodoItems,
   completeTodoItems,
+  getTodoItemFiles,
 } from "@/services/index";
 import SingleFile from "@/components/SingleFile.vue";
 
@@ -46,7 +55,12 @@ export default {
     return {
       newContent: "",
       isEditing: false,
+      files: [],
     };
+  },
+  created: async function () {
+    const resItems = await getTodoItemFiles(this.item._id);
+    this.files = resItems.data;
   },
   computed: {
     classList() {
@@ -75,6 +89,26 @@ export default {
       } else {
         this.item.text = this.newContent;
       }
+    },
+    submitFile(id) {
+      axios
+        .get(`http://localhost:8000/file/${id}`, {
+          headers: {
+            "Content-Type": "application/octet-stream",
+          },
+        })
+        .then(function (response) {
+          console.log("SUCCESS!!");
+          const blob = new Blob([response.data], {
+              type: "application/octet-stream",
+            }),
+            url = window.URL.createObjectURL(blob);
+
+          window.open(url);
+        })
+        .catch(function () {
+          console.log("FAILURE!!");
+        });
     },
   },
 };

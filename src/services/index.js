@@ -8,6 +8,10 @@ export function getUserTodoItems(userId) {
   return apiClient.get(`user/${userId}/items`);
 }
 
+export function getTodoItemFiles(itemId) {
+  return apiClient.get(`/to-do-list/${itemId}/files`);
+}
+
 export function createTodoItems(userId, text) {
   return apiClient.post("to-do-list/create", {
     userId,
