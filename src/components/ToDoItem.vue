@@ -11,34 +11,44 @@
       @input="$emit('input', $event.target.value)"
       @change="onItemCompleteChanged"
     />
-    <h3 v-if="!isEditing">{{ this.item.text }}</h3>
-    <div v-else>
+    <h3 v-show="!isEditing">{{ this.item.text }}</h3>
+    <div v-show="isEditing">
       <input
+        :id="`todoItemInputId_${item._id}`"
         :value="newContent"
         @change="onItemTextChanged"
         type="text"
         class="input-task"
       />
     </div>
-    <single-file :itemId="item._id" />
-    <button
-      v-for="file in files"
-      :key="file._id"
-      v-on:click="submitFile(file._id)"
-    >
-      {{ file.name }}
-    </button>
+    <Accordion>
+      <template v-slot:title>
+        <span class="font-semibold text-xl">Attachments</span>
+      </template>
+      <template v-slot:content>
+        <div>
+          <SingleFile :itemId="item._id" />
+          <div v-for="file in files" :key="file._id">
+            {{ file.name }}
+            <button v-on:click="submitFile(file._id)">load</button>
+            <button v-on:click="deleteFile(file._id)">delete</button>
+          </div>
+        </div>
+      </template>
+    </Accordion>
   </div>
 </template>
 
 <script>
-import axios from "axios";
 import {
   deleteTodoItem,
   updateTodoItems,
   completeTodoItems,
-  getTodoItemFiles,
+  getTodoItemAttachments,
+  deleteAttachment,
+  downloadAttachment,
 } from "@/services/index";
+import Accordion from "@/components/Accordion.vue";
 import SingleFile from "@/components/SingleFile.vue";
 
 export default {
@@ -49,6 +59,7 @@ export default {
     },
   },
   components: {
+    Accordion,
     SingleFile,
   },
   data() {
@@ -59,7 +70,7 @@ export default {
     };
   },
   created: async function () {
-    const resItems = await getTodoItemFiles(this.item._id);
+    const resItems = await getTodoItemAttachments(this.item._id);
     this.files = resItems.data;
   },
   computed: {
@@ -81,34 +92,27 @@ export default {
       await updateTodoItems(this.item._id, this.newContent);
     },
     async updateTask() {
-      console.log(this.item.text);
       this.isEditing = !this.isEditing;
 
       if (this.isEditing) {
         this.newContent = this.item.text;
+        const control = document.getElementById(
+          `todoItemInputId_${this.item._id}`
+        );
+        setTimeout(function () {
+          control.focus();
+        }, 10);
+
+        console.log(control);
       } else {
         this.item.text = this.newContent;
       }
     },
     submitFile(id) {
-      axios
-        .get(`http://localhost:8000/file/${id}`, {
-          headers: {
-            "Content-Type": "application/octet-stream",
-          },
-        })
-        .then(function (response) {
-          console.log("SUCCESS!!");
-          const blob = new Blob([response.data], {
-              type: "application/octet-stream",
-            }),
-            url = window.URL.createObjectURL(blob);
-
-          window.open(url);
-        })
-        .catch(function () {
-          console.log("FAILURE!!");
-        });
+      downloadAttachment(id);
+    },
+    deleteFile(id) {
+      deleteAttachment(id);
     },
   },
 };

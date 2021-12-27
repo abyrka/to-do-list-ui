@@ -162,3 +162,17 @@ header {
   opacity: 0.8;
   cursor: pointer;
 }
+
+.accordion {
+  width: auto;
+  cursor: pointer;
+}
+
+.accordion-button {
+  display: inline-flex;
+}
+
+.accordion-button-arrow {
+  height: 14px;
+  width: 14px;
+}

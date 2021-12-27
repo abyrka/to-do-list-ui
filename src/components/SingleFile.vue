@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <div>
-      <label
-        >File
+      <label>
+        <span> Add new file </span>
         <input type="file" @change="handleFileUpload($event)" />
       </label>
       <br />
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import { uploadAttachment } from "@/services/index";
 
 export default {
   data() {
@@ -31,22 +31,11 @@ export default {
       this.file = event.target.files[0];
     },
 
-    submitFile() {
-      let formData = new FormData();
-      formData.append("itemId", this.itemId);
-      formData.append("file", this.file);
-      axios
-        .post("http://localhost:8000/file/upload", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then(function () {
-          console.log("SUCCESS!!");
-        })
-        .catch(function () {
-          console.log("FAILURE!!");
-        });
+    async submitFile() {
+      const success = await uploadAttachment(this.itemId, this.file);
+      if (success) {
+        this.file = null;
+      }
     },
   },
 };
