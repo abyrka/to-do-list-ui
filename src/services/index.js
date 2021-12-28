@@ -71,7 +71,7 @@ export function uploadAttachment(itemId, file) {
 
 export function downloadAttachment(id) {
   axios
-    .get(`http://localhost:8000/file/${id}`, {
+    .get(`http://localhost:8000/attachment/${id}`, {
       headers: {
         "Content-Type": "application/octet-stream",
       },

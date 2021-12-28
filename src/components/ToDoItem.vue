@@ -85,7 +85,7 @@ export default {
       await deleteTodoItem(this.item._id);
     },
     async onItemCompleteChanged() {
-      await completeTodoItems(this.item._id, !this.item.complete);
+      await completeTodoItems(this.item._id, this.item.complete);
     },
     async onItemTextChanged(e) {
       this.newContent = e.target.value;
